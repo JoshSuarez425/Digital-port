@@ -70,7 +70,8 @@ a:focus {
 }
 
 .popup {
-    width: min(90vw, 420px);
+    width: 90vw;
+    max-width: 420px;
     background: #ffffff;
     border-radius: 16px;
     box-shadow: 0 20px 35px rgba(0,0,0,0.20);
@@ -78,6 +79,14 @@ a:focus {
     position: relative;
     text-align: center;
     animation: popup-appear .35s ease;
+}
+
+/* Legacy browser fallback: is the loader still showing? Force hide after page load */
+#loader, #loader.show {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    z-index: -1 !important;
 }
 
 @keyframes popup-appear {
@@ -336,7 +345,8 @@ a:focus {
 }
 
 .mobile-warning-box {
-    width: min(90vw, 360px);
+    width: 90vw;
+    max-width: 360px;
     background: #ffffff;
     border-radius: 12px;
     padding: 20px;
@@ -530,7 +540,8 @@ a:focus {
     }
 
     .popup {
-        width: min(92vw, 320px);
+        width: 92vw;
+        max-width: 320px;
         padding: 16px;
     }
 }
@@ -632,7 +643,8 @@ footer img {
     }
 
     .popup {
-        width: min(90vw, 320px);
+        width: 90vw;
+        max-width: 320px;
         padding: 18px;
     }
 
@@ -1080,7 +1092,8 @@ footer img {
     }
 
     .popup {
-        width: min(95vw, 360px);
+        width: 95vw;
+        max-width: 360px;
         padding: 18px;
     }
 
@@ -2305,6 +2318,77 @@ footer img {
     .footer .footer-menu p {
         font-size: 16px;
         line-height: 16px;
+    }
+}
+
+/* Extra cool new style enhancements */
+:root {
+    --cool-blue: #0950ff;
+    --cool-pink: #ff3d7f;
+    --glass-white: rgba(255,255,255,0.22);
+}
+
+/* Gradient animated headers */
+.section-header h2 {
+    background: linear-gradient(110deg, var(--cool-blue), var(--cool-pink), #3dd5ff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: hueShift 6s ease-in-out infinite;
+}
+
+@keyframes hueShift {
+    0%,100% { filter: hue-rotate(0deg); }
+    50% { filter: hue-rotate(60deg); }
+}
+
+/* Team cards glow effect */
+.team-item {
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.03));
+    backdrop-filter: blur(14px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.15);
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+
+.team-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(6,39,104,0.55);
+    border-color: rgba(255,255,255,.45);
+}
+
+/* Button sparkle bloom */
+.btn, .mobile-warning-actions button {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::after, .mobile-warning-actions button::after {
+    content: "";
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    top: -10%;
+    left: -10%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.6) 0%, rgba(255,255,255,0) 60%);
+    opacity: 0;
+    transform: scale(0.8);
+    transition: transform .7s ease, opacity .7s ease;
+}
+
+.btn:hover::after, .mobile-warning-actions button:hover::after {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+/* Sidebar floating highlight (navbar) */
+.navbar.nav-sticky {
+    border-bottom: 1px solid rgba(255,255,255,.17);
+    background: rgba(22,22,38,0.82) !important;
+    backdrop-filter: blur(10px);
+}
+
         padding: 0 5px;
     }
 }
@@ -2316,3 +2400,20 @@ footer img {
 
 
 
+/* Preserve navbar brand/nav-link color no matter other global link changes */
+.navbar, .navbar .navbar-brand, .navbar .navbar-nav .nav-link {
+    color: #333333 !important;
+}
+
+.navbar-light .navbar-brand,
+.navbar-light .navbar-nav .nav-link,
+.navbar-light .navbar-nav .nav-link:focus {
+    color: #333333 !important;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light.nav-sticky .navbar-nav .nav-link,
+.navbar-light.nav-sticky .navbar-brand {
+    color: #EF233C !important;
+}
